@@ -1,0 +1,31 @@
+spring:
+  profiles:
+    active: local
+---
+
+spring:
+  profile: production
+  datasource:
+    url: jdbc:postgresql://tiny.db.elephantsql.com:5432/${DB_USERNAME}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+ 
+server:
+  port: 8080
+
+---
+spring:
+  profile: local
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+    
+  jpa:
+    hibernate.ddl-auto: update
+    properties.hibernate.dialect: org.hibernate.dialect.PostgreSQL92Dialect
+    show-sql: true
+    
+server:
+    port: 8081    
+    
