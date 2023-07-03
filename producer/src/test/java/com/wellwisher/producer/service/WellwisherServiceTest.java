@@ -43,11 +43,11 @@ public class WellwisherServiceTest {
 		
 	}
 	
-	@DisplayName("retur people successfully")
+	@DisplayName("return people successfully")
 	@Test
 	void subscribeSuccessfully()
 	{
-		when(wellwisherDAO.save(people)).thenReturn(people);
+	    when(wellwisherDAO.save(people)).thenReturn(people);
 	    People obj = wellwisherService.subscribe(people);
 	    verify(wellwisherDAO).save(people);
 	    assertEquals(obj,people);
