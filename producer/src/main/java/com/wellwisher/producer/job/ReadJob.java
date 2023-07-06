@@ -19,8 +19,6 @@ public class ReadJob implements Job {
 
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
-		System.out.println("Fetching from database");
 		List<People> people = wellwisherService.get();
-		System.out.println("Fetched Successfully size: "+ people.size());
 	}
 }
