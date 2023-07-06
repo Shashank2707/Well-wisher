@@ -15,7 +15,6 @@ public class WellwisherServiceIMPL implements WellwisherService{
 	@Autowired
 	WellwisherDAO wellWisherDAO;
 	
-	
 	@Override
 	public People subscribe(People people) {
 		return wellWisherDAO.save(people);
