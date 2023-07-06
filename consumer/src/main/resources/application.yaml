@@ -1,0 +1,50 @@
+spring:
+  profiles:
+    active: local
+---
+
+spring:
+  profile: production
+  datasource:
+    url: jdbc:postgresql://tiny.db.elephantsql.com:5432/${DB_USERNAME}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+ 
+server:
+  port: 8082
+
+---
+spring:
+  profile: local
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+    
+  jpa:
+    hibernate.ddl-auto: update
+    properties.hibernate.dialect: org.hibernate.dialect.PostgreSQL92Dialect
+    show-sql: true
+   
+  rabbitmq.host: localhost
+  rabbitmq.port: 5672
+  rabbitmq.username: guest
+  rabbitmq.password: guest
+  rabbitmq.queue: birthday-queue
+  rabbitmq.exchange: birthday-exchange
+  
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: kingbreath2707@gmail.com
+    password: password
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+    
+server:
+    port: 8082    
