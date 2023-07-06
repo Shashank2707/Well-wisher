@@ -16,27 +16,24 @@ public class RabbitConfig {
 	private String queueName;
 	@Value("${spring.rabbitmq.exchange}")
 	private String exchange;
-	 @Bean
-	 public Queue birthdayQueue() 
-	 {
-	    return new Queue(queueName);
-	 }
 
-	 @Bean
-	 public TopicExchange birthdayExchange() 
-	 {
-	        return new TopicExchange(exchange);
-	 }
+	@Bean
+	public Queue getQueue() {
+		return new Queue(queueName);
+	}
 
-	 @Bean
-	 public Binding binding(Queue queue, TopicExchange exchange) 
-	 {
-	    return BindingBuilder.bind(queue).to(exchange).with(queueName);
-	 }
-	 
-	 @Bean
-	 public Jackson2JsonMessageConverter messageConverter() 
-	 {
-	    return new Jackson2JsonMessageConverter();
-	 }
+	@Bean
+	public TopicExchange getExchange() {
+		return new TopicExchange(exchange);
+	}
+
+	@Bean
+	public Binding getBinding(Queue queue, TopicExchange exchange) {
+		return BindingBuilder.bind(queue).to(exchange).with(queueName);
+	}
+
+	@Bean
+	public Jackson2JsonMessageConverter messageConverter() {
+		return new Jackson2JsonMessageConverter();
+	}
 }

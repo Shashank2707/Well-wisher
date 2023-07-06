@@ -1,4 +1,4 @@
-package com.wellwisher.consumer.config;
+package com.wellwisher.consumer.constant;
 
 public class Constants {
 
