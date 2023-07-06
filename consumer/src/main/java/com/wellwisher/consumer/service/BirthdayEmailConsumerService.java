@@ -27,25 +27,19 @@ public class BirthdayEmailConsumerService {
     public void consumeBirthdayEmail(People people,Channel channel) {
       
     	logger.info("Inside BirthdayEmailConsumerService consumeBirthdayEmail");
-    	// Prepare email content for the person
         String emailContent = prepareEmailContent(people);
 
-        // Send the email
-        sendEmail(people.getEmail(), emailContent);
+        sendEmail(people, emailContent);
         logger.info("Send email successfully");
     }
 
-	private void sendEmail(String recipientEmail, String emailContent) {
+	private void sendEmail(People people, String emailContent) {
 		try {
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            helper.setTo(recipientEmail);
-            helper.setSubject("Happy Birthday!");
-
-            // Set the email content
+            helper.setTo(people.getEmail());
+            helper.setSubject("Happy " + people.getOccasion() + "!!");
             helper.setText(emailContent);
-
-            // Send the email
             mailSender.send(message);
             
         } catch (MessagingException e) {
@@ -60,10 +54,9 @@ public class BirthdayEmailConsumerService {
 	    
 	    StringBuilder sb  = new StringBuilder();
 	    sb.append("Dear " + name + ",\n\n");
-	    sb.append("Wishing you a very happy birthday! May this day bring joy, happiness, and success in your life.\n\n" );
+	    sb.append("Wishing you a very happy "+ people.getOccasion() + "! May this day bring joy, happiness, and success in your life.\n\n" );
 	    sb.append("Warm Regards,\n");
-	    sb.append("Shashank & Team \n");
-	    sb.append("from Well Wisher Team");
+	    sb.append("Well Wisher Team");
 
 	    return sb.toString();
 	}

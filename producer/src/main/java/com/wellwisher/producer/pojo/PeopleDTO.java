@@ -1,6 +1,6 @@
-package com.wellwisher.consumer.pojo;
+package com.wellwisher.producer.pojo;
 
-public class People {
+public class PeopleDTO {
 
 	private int id;
 	private String name;
@@ -16,8 +16,8 @@ public class People {
 	public String getEmail() {
 		return email;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setEmailId(String emailId) {
+		this.email = emailId;
 	}
 	public String getOccasion() {
 		return occasion;
@@ -31,15 +31,25 @@ public class People {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public People() {
+	public PeopleDTO() {
 		super();
 	}
-	public People(int id, String name, String email, String occasion) {
+	public PeopleDTO(int id, String name, String emailId, String occasion) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.email = email;
+		this.email = emailId;
 		this.occasion = occasion;
 	}
+	
+	public PeopleDTO(People people)
+	{
+		super();
+		this.id = people.getId();
+		this.name = people.getName();
+		this.email = people.getEmail();
+		this.occasion = people.getOccasion();
+	}
+	
+	
 }
-
