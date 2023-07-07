@@ -1,5 +1,7 @@
 package com.wellwisher.consumer.service;
 
+import static com.wellwisher.consumer.constant.Constants.SOMETHING_WENT_WRONG;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
@@ -11,29 +13,27 @@ import org.springframework.http.HttpStatus;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-import static com.wellwisher.consumer.config.Constants.*;
+
 import com.rabbitmq.client.Channel;
 import com.wellwisher.consumer.exception.InternalServerErrorException;
 import com.wellwisher.consumer.pojo.People;
 
 @Service
-public class BirthdayEmailConsumerService {
+public class ConsumeAndEmailService {
 
-	private static final Logger logger = LoggerFactory.getLogger(BirthdayEmailConsumerService.class);
+	private static final Logger logger = LoggerFactory.getLogger(ConsumeAndEmailService.class);
 	@Autowired
     private JavaMailSender mailSender;
 
     @RabbitListener(queues = "${spring.rabbitmq.queue}")
-    public void consumeBirthdayEmail(People people,Channel channel) {
-      
-    	logger.info("Inside BirthdayEmailConsumerService consumeBirthdayEmail");
-        String emailContent = prepareEmailContent(people);
-
-        sendEmail(people, emailContent);
-        logger.info("Send email successfully");
+    public void consumeAndSendEmail(People people, Channel channel) {
+    	logger.info("Inside consumeAndSendEmail()");
+        sendEmail(people);
+        logger.info("Email sent successfully!!");
     }
 
-	private void sendEmail(People people, String emailContent) {
+	private void sendEmail(People people) {
+        String emailContent = prepareEmailContent(people);
 		try {
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
@@ -41,12 +41,10 @@ public class BirthdayEmailConsumerService {
             helper.setSubject("Happy " + people.getOccasion() + "!!");
             helper.setText(emailContent);
             mailSender.send(message);
-            
         } catch (MessagingException e) {
-            logger.error("Inside BirthdayEmailConsumerService sendEmail, Exception occured | Reason : {}",e.getMessage());
-            throw new InternalServerErrorException(SOMETHING_WENT_WRONG,HttpStatus.INTERNAL_SERVER_ERROR);
+            logger.error("Inside sendEmail, Exception occured | Reason : {}", e.getMessage());
+            throw new InternalServerErrorException(SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-		
 	}
 
 	private String prepareEmailContent(People people) {

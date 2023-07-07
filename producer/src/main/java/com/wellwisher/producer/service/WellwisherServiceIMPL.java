@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.wellwisher.producer.pojo.People;
 import com.wellwisher.producer.repository.WellwisherDAO;
+import com.wellwisher.producer.util.DateUtil;
 
 @Service
 public class WellwisherServiceIMPL implements WellwisherService{
@@ -22,7 +23,8 @@ public class WellwisherServiceIMPL implements WellwisherService{
 	
 	@Override
 	public List<People> get() {
-		return wellWisherDAO.findAllByDate(LocalDate.now());
+		LocalDate istDate = DateUtil.getTodaysZoneDate();
+		return wellWisherDAO.findAllByDateToday(istDate.getDayOfMonth(), istDate.getMonthValue());
 	}
 
 }

@@ -7,6 +7,7 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.wellwisher.producer.pojo.People;
@@ -21,14 +22,17 @@ public class ReadJob implements Job {
 	
 	@Autowired
 	RabbitTemplate rabbitTemplate;
+	
+	@Value("${spring.rabbitmq.exchange}")
+	String exchange;
+	
+	@Value("${spring.rabbitmq.queue}")
+	String queueName;
 
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
-		List<People> birthdayPeople = wellwisherService.get();
-		for(var people : birthdayPeople)
-		{
-			PeopleDTO peopleDto = new PeopleDTO(people);
-			rabbitTemplate.convertAndSend("birthday-exchange","birthday-queue",peopleDto);
-		}
+		List<People> peoples = wellwisherService.get();
+		for(var people : peoples)
+			rabbitTemplate.convertAndSend(exchange, queueName, new PeopleDTO(people));
 	}
 }
