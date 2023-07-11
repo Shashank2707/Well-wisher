@@ -16,6 +16,11 @@ public class RabbitConfig {
 	private String queueName;
 	@Value("${spring.rabbitmq.exchange}")
 	private String exchange;
+	
+	@Value("${spring.rabbitmq.broadcastQueue}")
+	private String broadcastQueueName;
+	@Value("${spring.rabbitmq.broadcastExchange}")
+	private String broadcastExchangeName;
 
 	@Bean
 	public Queue getQueue() {
@@ -28,8 +33,26 @@ public class RabbitConfig {
 	}
 
 	@Bean
-	public Binding getBinding(Queue queue, TopicExchange exchange) {
-		return BindingBuilder.bind(queue).to(exchange).with(queueName);
+	public Binding getBinding(Queue getQueue, TopicExchange getExchange) {
+		return BindingBuilder.bind(getQueue).to(getExchange).with(queueName);
+	}
+	
+	@Bean
+	public Queue broadcastQueue()
+	{
+		return new Queue(broadcastQueueName);
+	}
+	
+	@Bean
+	public TopicExchange boradcastExchange()
+	{
+		return new TopicExchange(broadcastExchangeName);
+	}
+	
+	@Bean
+	public Binding broadcastBinding(Queue broadcastQueue, TopicExchange boradcastExchange)
+	{
+		return BindingBuilder.bind(broadcastQueue).to(boradcastExchange).with(broadcastQueueName);
 	}
 
 	@Bean

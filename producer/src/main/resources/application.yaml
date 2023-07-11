@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: ${ACTIVE_PROFILE}
+    active: local
 ---
 
 spring:
@@ -20,6 +20,8 @@ spring:
   rabbitmq.password: ${RABBITMQ_PASSWORD}
   rabbitmq.queue: ${RABBITMQ_QUEUE}
   rabbitmq.exchange: ${RABBITMQ_EXCHANGE}
+  rabbitmq.broadcastQueue: ${RABBITMQ_BROADCAST_QUEUE}
+  rabbitmq.broadcastExchange: ${RABBITMQ_BROADCAST_EXCHANGE}
  
 server:
   port: 8080
@@ -28,7 +30,7 @@ server:
 spring:
   profile: local
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://localhost:5432/utkarshdb
     username: postgres
     password: postgres
     
@@ -43,6 +45,8 @@ spring:
   rabbitmq.password: guest
   rabbitmq.queue: birthday-queue
   rabbitmq.exchange: birthday-exchange
+  rabbitmq.broadcastQueue: broadcast-queue
+  rabbitmq.broadcastExchange: broadcast-exchange
     
 server:
     port: 8080   

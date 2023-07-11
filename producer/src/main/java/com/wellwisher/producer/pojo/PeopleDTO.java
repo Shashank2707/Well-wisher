@@ -1,5 +1,7 @@
 package com.wellwisher.producer.pojo;
 
+import com.wellwisher.producer.entity.PeopleEntity;
+
 public class PeopleDTO {
 
 	private int id;
@@ -42,7 +44,7 @@ public class PeopleDTO {
 		this.occasion = occasion;
 	}
 	
-	public PeopleDTO(People people)
+	public PeopleDTO(PeopleEntity people)
 	{
 		super();
 		this.id = people.getId();

@@ -1,4 +1,4 @@
-package com.wellwisher.producer.pojo;
+package com.wellwisher.producer.entity;
 
 import java.time.LocalDate;
 
@@ -7,14 +7,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.wellwisher.producer.pojo.PeopleRequest;
+
 @Entity
-public class People{
+public class PeopleEntity{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
-	private String nickName; 
 	private String email;
 	private LocalDate date;
 	private String occasion;
@@ -30,12 +31,6 @@ public class People{
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public String getNickName() {
-		return nickName;
-	}
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
 	}
 	public String getEmail() {
 		return email;
@@ -60,6 +55,17 @@ public class People{
 	}
 	public void setSubscription(boolean subscription) {
 		this.subscription = subscription;
+	}
+	
+	public PeopleEntity() {}
+	
+	public PeopleEntity(PeopleRequest request) {
+		super();
+		this.name = request.getName();
+		this.email = request.getEmail();
+		this.occasion = request.getOccasion();
+		this.date = request.getOccasionDate();
+		this.subscription = true;
 	}
 }
 
