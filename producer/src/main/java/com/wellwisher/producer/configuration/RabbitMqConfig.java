@@ -53,9 +53,9 @@ public class RabbitMqConfig {
 	}
 	
 	@Bean
-	public Binding broadcastBinding(Queue queue, TopicExchange exchange)
+	public Binding broadcastBinding(Queue broadcastQueue, TopicExchange boradcastExchange)
 	{
-		return BindingBuilder.bind(queue).to(exchange).with(broadcastQueueName);
+		return BindingBuilder.bind(broadcastQueue).to(boradcastExchange).with(broadcastQueueName);
 	}
 	
 	@Bean

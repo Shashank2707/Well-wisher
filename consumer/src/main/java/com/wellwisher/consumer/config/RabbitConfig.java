@@ -33,8 +33,8 @@ public class RabbitConfig {
 	}
 
 	@Bean
-	public Binding getBinding(Queue queue, TopicExchange exchange) {
-		return BindingBuilder.bind(queue).to(exchange).with(queueName);
+	public Binding getBinding(Queue getQueue, TopicExchange getExchange) {
+		return BindingBuilder.bind(getQueue).to(getExchange).with(queueName);
 	}
 	
 	@Bean
@@ -50,9 +50,9 @@ public class RabbitConfig {
 	}
 	
 	@Bean
-	public Binding broadcastBinding(Queue queue, TopicExchange exchange)
+	public Binding broadcastBinding(Queue broadcastQueue, TopicExchange boradcastExchange)
 	{
-		return BindingBuilder.bind(queue).to(exchange).with(broadcastQueueName);
+		return BindingBuilder.bind(broadcastQueue).to(boradcastExchange).with(broadcastQueueName);
 	}
 
 	@Bean
