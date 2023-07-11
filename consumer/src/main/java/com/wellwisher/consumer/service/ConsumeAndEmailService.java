@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.rabbitmq.client.Channel;
 import com.wellwisher.consumer.exception.InternalServerErrorException;
+import com.wellwisher.consumer.pojo.BroadcastDTO;
 import com.wellwisher.consumer.pojo.People;
 
 @Service
@@ -28,8 +29,15 @@ public class ConsumeAndEmailService {
     @RabbitListener(queues = "${spring.rabbitmq.queue}")
     public void consumeAndSendEmail(People people, Channel channel) {
     	logger.info("Inside consumeAndSendEmail()");
-        sendEmail(people);
+        //sendEmail(people);
         logger.info("Email sent successfully!!");
+    }
+    
+    @RabbitListener(queues = "${spring.rabbitmq.broadcastQueue}")
+    public void broadcastConsumeAndSendEmail(BroadcastDTO broadcast, Channel channel) {
+    	logger.info("Inside broadcastCconsumeAndSendEmail()");
+        //sendBroadcastEmail(broadcast);
+        logger.info("Broadcast emailed sent successfully!!");
     }
 
 	private void sendEmail(People people) {

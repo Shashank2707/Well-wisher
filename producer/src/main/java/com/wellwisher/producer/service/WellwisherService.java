@@ -1,9 +1,15 @@
 package com.wellwisher.producer.service;
 import java.util.List;
 
-import com.wellwisher.producer.pojo.People;
+import org.springframework.http.ResponseEntity;
+
+import com.wellwisher.producer.entity.BroadcastEntity;
+import com.wellwisher.producer.entity.PeopleEntity;
+import com.wellwisher.producer.pojo.PeopleRequest;
 
 public interface WellwisherService {
-	public People subscribe(People people);
-	public List<People> get();
+	public List<PeopleEntity> getAllPeoples();
+	public ResponseEntity<String> subscribe(PeopleRequest peopleDto);
+	public List<PeopleEntity> getByDate();
+	public List<BroadcastEntity> getBroadcastOccasion();
 }

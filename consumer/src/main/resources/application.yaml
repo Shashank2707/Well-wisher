@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: ${ACTIVE_PROFILE}
+    active: local
 ---
 
 spring:
@@ -12,6 +12,8 @@ spring:
   rabbitmq.password: ${RABBITMQ_PASSWORD}
   rabbitmq.queue: ${RABBITMQ_QUEUE}
   rabbitmq.exchange: ${RABBITMQ_EXCHANGE}
+  rabbitmq.broadcastQueue: ${RABBITMQ_BROADCAST_QUEUE}
+  rabbitmq.broadcastExchange: ${RABBITMQ_BROADCAST_EXCHANGE}
   
   mail:
     host: smtp.gmail.com
@@ -39,6 +41,8 @@ spring:
   rabbitmq.password: guest
   rabbitmq.queue: birthday-queue
   rabbitmq.exchange: birthday-exchange
+  rabbitmq.broadcastQueue: broadcast-queue
+  rabbitmq.broadcastExchange: broadcast-exchange
   
   mail:
     host: smtp.gmail.com

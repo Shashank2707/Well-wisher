@@ -15,12 +15,13 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.amqp.rabbit.test.context.SpringRabbitTest;
 
-import com.wellwisher.producer.pojo.People;
+import com.wellwisher.producer.entity.PeopleEntity;
+import com.wellwisher.producer.pojo.PeopleRequest;
 import com.wellwisher.producer.repository.WellwisherDAO;
 
 @SpringRabbitTest
 @ExtendWith(MockitoExtension.class)
-public class WellwisherServiceTest {
+class WellwisherServiceTest {
 
 	@Mock
 	WellwisherDAO wellwisherDAO;
@@ -28,28 +29,26 @@ public class WellwisherServiceTest {
 	@InjectMocks
 	WellwisherService wellwisherService;
 	
-    People people = new People();
+    PeopleRequest people = new PeopleRequest();
 	
 	@BeforeEach()
 	void setUp()
 	{
 		people.setName("shashank");
-		people.setNickName("shan");
 		LocalDate date = LocalDate.of(1999, 07, 27);
-		people.setDate(date);
+		people.setOccasionDate(date);
 		people.setEmail("kingbreath2707@gmail.com");
 		people.setOccasion("birthday");
-		people.setSubscription(true);
 		
 	}
 	
 	@DisplayName("return people successfully")
 	@Test
 	void subscribeSuccessfully()
-	{
-	    when(wellwisherDAO.save(people)).thenReturn(people);
-	    People obj = wellwisherService.subscribe(people);
-	    verify(wellwisherDAO).save(people);
-	    assertEquals(obj,people);
+	{	
+		PeopleEntity peopleEntity = new PeopleEntity(people);
+	    when(wellwisherDAO.save(peopleEntity)).thenReturn(peopleEntity);
+	    String obj = wellwisherService.subscribe(people).getBody();
+	    assertEquals("Saved", obj);
 	}
 }

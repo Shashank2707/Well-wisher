@@ -13,13 +13,15 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
 
-import com.wellwisher.producer.pojo.People;
+import com.wellwisher.producer.entity.PeopleEntity;
+import com.wellwisher.producer.pojo.PeopleRequest;
 import com.wellwisher.producer.service.WellwisherService;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-public class WellwisherControllerTest {
+class WellwisherControllerTest {
 
 	@Mock
 	WellwisherService wellwisherService;
@@ -27,18 +29,16 @@ public class WellwisherControllerTest {
 	@InjectMocks
 	WellwisherController wellwisherController;
 	
-	People people = new People();
+	PeopleRequest people = new PeopleRequest();
 	
 	@BeforeEach()
 	void setUp()
 	{
 		people.setName("shashank");
-		people.setNickName("shan");
 		LocalDate date = LocalDate.of(1999, 07, 27);
-		people.setDate(date);
+		people.setOccasionDate(date);
 		people.setEmail("kingbreath2707@gmail.com");
 		people.setOccasion("birthday");
-		people.setSubscription(true);
 		
 	}
 	
@@ -46,9 +46,9 @@ public class WellwisherControllerTest {
 	@Test
 	void subscribeSuccessfully()
 	{
-	    Mockito.when(wellwisherService.subscribe(people)).thenReturn(people);
-	    People obj = wellwisherController.subscribe(people);
-	    assertEquals(obj,people);
+	    Mockito.when(wellwisherService.subscribe(people)).thenReturn(ResponseEntity.ok("Saved"));
+	    ResponseEntity<String> obj = wellwisherController.subscribe(people);
+	    assertEquals("Saved", obj.getBody());
 	}
 	
 }
