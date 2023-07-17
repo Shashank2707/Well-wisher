@@ -53,4 +53,10 @@ public class WellwisherServiceIMPL implements WellwisherService{
 		return broadcastDAO.findAllByDate(istDate);
 	}
 
+	@Override
+	public ResponseEntity<String> unsubscribe(String email) {
+		wellWisherDAO.unsubscribe(email);
+		return ResponseEntity.ok("Unsubscribed Successfully !!");
+	}
+
 }

@@ -12,4 +12,5 @@ public interface WellwisherService {
 	public ResponseEntity<String> subscribe(PeopleRequest peopleDto);
 	public List<PeopleEntity> getByDate();
 	public List<BroadcastEntity> getBroadcastOccasion();
+	public ResponseEntity<String> unsubscribe(String email);
 }

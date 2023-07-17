@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wellwisher.producer.pojo.PeopleRequest;
@@ -27,5 +28,11 @@ public class WellwisherController{
 	public ResponseEntity<String> subscribe(@RequestBody PeopleRequest people)
 	{
 		return wellwisherService.subscribe(people);
+	}
+	
+	@GetMapping(value = "/unsubscribe")
+	public ResponseEntity<String> unsubscribe(@RequestParam(name="email") String email)
+	{
+		return wellwisherService.unsubscribe(email);
 	}
 }
