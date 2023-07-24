@@ -4,7 +4,6 @@ import static com.wellwisher.consumer.constant.Constants.SOMETHING_WENT_WRONG;
 
 import java.io.IOException;
 import java.io.StringWriter;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,7 +18,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
 import com.rabbitmq.client.Channel;
 import com.wellwisher.consumer.exception.InternalServerErrorException;
@@ -27,7 +25,6 @@ import com.wellwisher.consumer.pojo.BroadcastDTO;
 import com.wellwisher.consumer.pojo.People;
 
 import freemarker.template.Configuration;
-import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
 @Service
@@ -79,7 +76,6 @@ public class ConsumeAndEmailService {
 	        try {
 				freemarkerConfig.getTemplate("occasionTemplateForPerson.ftlh").process(model, stringWriter);
 			} catch (TemplateException | IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	        return stringWriter.getBuffer().toString();

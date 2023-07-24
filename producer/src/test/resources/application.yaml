@@ -1,0 +1,28 @@
+spring:
+  profiles:
+    active: test
+---
+
+spring:
+  profiles: test
+  datasource:
+    url: jdbc:postgresql://test:1234/test
+    username: test
+    password: test
+    
+  jpa:
+    hibernate.ddl-auto: update
+    properties.hibernate.dialect: org.hibernate.dialect.PostgreSQL92Dialect
+    
+  rabbitmq.host: test
+  rabbitmq.port: 123
+  rabbitmq.virtualhost: test
+  rabbitmq.username: test
+  rabbitmq.password: test
+  rabbitmq.queue: test
+  rabbitmq.exchange: test
+  rabbitmq.broadcastQueue: test
+  rabbitmq.broadcastExchange: test
+ 
+server:
+  port: 8080
