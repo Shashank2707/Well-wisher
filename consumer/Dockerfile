@@ -12,6 +12,7 @@ FROM openjdk:17
 ENV ACTIVE_PROFILE=local \
     RABBITMQ_HOST=localhost \
     RABBITMQ_PORT=5672 \
+    RABBITMQ_VIRTUALHOST=virtualhost \
     RABBITMQ_USERNAME=guest \
     RABBITMQ_PASSWORD=guest \
     RABBITMQ_QUEUE=birthday-queue \
