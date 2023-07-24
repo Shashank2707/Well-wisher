@@ -1,4 +1,5 @@
 spring:
+  name: wellwisher_producer
   profiles:
     active: ${ACTIVE_PROFILE}
 ---
