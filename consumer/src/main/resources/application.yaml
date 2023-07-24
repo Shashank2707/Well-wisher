@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: local
+    active: ${ACTIVE_PROFILE}
 ---
 
 spring:
@@ -8,6 +8,7 @@ spring:
   
   rabbitmq.host: ${RABBITMQ_HOST}
   rabbitmq.port: ${RABBITMQ_PORT}
+  rabbitmq.virtualhost: ${RABBITMQ_VIRTUALHOST}
   rabbitmq.username: ${RABBITMQ_USERNAME}
   rabbitmq.password: ${RABBITMQ_PASSWORD}
   rabbitmq.queue: ${RABBITMQ_QUEUE}
@@ -37,6 +38,7 @@ spring:
   
   rabbitmq.host: localhost
   rabbitmq.port: 5672
+  rabbitmq.virtualhost: virtualhost
   rabbitmq.username: guest
   rabbitmq.password: guest
   rabbitmq.queue: birthday-queue
