@@ -1,11 +1,11 @@
 spring:
   name: wellwisher_consumer
   profiles:
-    active: ${ACTIVE_PROFILE}
+    active: production
 ---
 
 spring:
-  profile: production
+  profiles: production
   
   rabbitmq.host: ${RABBITMQ_HOST}
   rabbitmq.port: ${RABBITMQ_PORT}
@@ -35,7 +35,7 @@ server:
 
 ---
 spring:
-  profile: local
+  profiles: local
   
   rabbitmq.host: localhost
   rabbitmq.port: 5672
