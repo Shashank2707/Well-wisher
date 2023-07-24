@@ -40,7 +40,14 @@ public class RabbitConfig {
 
 	@Bean
 	public Queue getQueue() {
-		logger.info(username + " " + password + " " + host + " " + virtualHost + " " + queueName + " " + exchange + " " + broadcastQueueName + " " + broadcastExchangeName);
+		logger.info("~~~~~~~~~~~~~~~~~~~~~~>>>>>>>"+ username);
+		logger.info("~~~~~~~~~~~~~~~~~~~~~~>>>>>>>"+ password);
+		logger.info("~~~~~~~~~~~~~~~~~~~~~~>>>>>>>"+ host);
+		logger.info("~~~~~~~~~~~~~~~~~~~~~~>>>>>>>"+ virtualHost);
+		logger.info("~~~~~~~~~~~~~~~~~~~~~~>>>>>>>"+ queueName);
+		logger.info("~~~~~~~~~~~~~~~~~~~~~~>>>>>>>"+ exchange);
+		logger.info("~~~~~~~~~~~~~~~~~~~~~~>>>>>>>"+ broadcastQueueName);
+		logger.info("~~~~~~~~~~~~~~~~~~~~~~>>>>>>>"+ broadcastExchangeName);
 		return new Queue(queueName);
 	}
 
