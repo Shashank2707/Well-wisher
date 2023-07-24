@@ -1,0 +1,32 @@
+spring :
+  profiles.active: test
+
+---
+spring:
+  profiles: test
+  
+  rabbitmq.host: testhost
+  rabbitmq.port: 5672
+  rabbitmq.virtualhost: testvirtualhost
+  rabbitmq.username: test
+  rabbitmq.password: test
+  rabbitmq.queue: test-birthday-queue
+  rabbitmq.exchange: test-birthday-exchange
+  rabbitmq.broadcastQueue: test-broadcast-queue
+  rabbitmq.broadcastExchange: test-broadcast-exchange
+  
+  mail:
+    host: test.gmail.com
+    port: 587
+    username: test@gmail.com
+    password: test
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+    
+server:
+    port: 8082    
