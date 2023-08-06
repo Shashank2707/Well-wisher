@@ -1,7 +1,7 @@
 spring:
   name: wellwisher_producer
   profiles:
-    active: local
+    active: ${ACTIVE_PROFILE}
 ---
 
 spring:
