@@ -13,4 +13,5 @@ public interface WellwisherService {
 	public List<PeopleEntity> getByDate();
 	public List<BroadcastEntity> getBroadcastOccasion();
 	public ResponseEntity<String> unsubscribe(String email);
+	public ResponseEntity<List<PeopleRequest>> getAllUser(String otp);
 }

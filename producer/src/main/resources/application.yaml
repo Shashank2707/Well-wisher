@@ -1,7 +1,7 @@
 spring:
   name: wellwisher_producer
   profiles:
-    active: ${ACTIVE_PROFILE}
+    active: local
 ---
 
 spring:
@@ -24,6 +24,8 @@ spring:
   rabbitmq.exchange: ${RABBITMQ_EXCHANGE}
   rabbitmq.broadcastQueue: ${RABBITMQ_BROADCAST_QUEUE}
   rabbitmq.broadcastExchange: ${RABBITMQ_BROADCAST_EXCHANGE}
+  
+wellwisher.secret.key: ${SECRET_KEY}
  
 server:
   port: 8080
@@ -32,7 +34,7 @@ server:
 spring:
   profiles: local
   datasource:
-    url: jdbc:postgresql://localhost:5432/utkarshdb
+    url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
     password: postgres
     
@@ -50,6 +52,8 @@ spring:
   rabbitmq.exchange: birthday-exchange
   rabbitmq.broadcastQueue: broadcast-queue
   rabbitmq.broadcastExchange: broadcast-exchange
+  
+wellwisher.secret.key: wellwisher2348851qyn  
     
 server:
     port: 8080   

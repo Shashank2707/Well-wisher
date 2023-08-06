@@ -1,5 +1,9 @@
 package com.wellwisher.producer.controller;
 
+import static com.wellwisher.producer.constants.Constants.PRODUCER_STATUS;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,14 +26,14 @@ public class WellwisherController{
 	
 	@GetMapping(value = "/status")
 	public ResponseEntity<String> getStatus() {
-		return ResponseEntity.ok("Producer Operational");
+		return ResponseEntity.ok(PRODUCER_STATUS);
 	}
 
 	@CrossOrigin
 	@PostMapping(value = "/subscribe")
 	public ResponseEntity<String> subscribe(@RequestBody PeopleRequest people)
 	{
-		return wellwisherService.subscribe(people);
+		 return wellwisherService.subscribe(people);
 	}
 
 	@CrossOrigin
@@ -38,4 +42,10 @@ public class WellwisherController{
 	{
 		return wellwisherService.unsubscribe(email);
 	}
+	
+	@GetMapping(value = "/getAllUser")
+	public ResponseEntity<List<PeopleRequest>> getAllUser(@RequestParam(name = "otp", defaultValue = "000000") String otp)
+	{
+		return wellwisherService.getAllUser(otp);
+	}	
 }

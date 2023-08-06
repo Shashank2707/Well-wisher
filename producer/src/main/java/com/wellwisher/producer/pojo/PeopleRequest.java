@@ -2,6 +2,8 @@ package com.wellwisher.producer.pojo;
 
 import java.time.LocalDate;
 
+import com.wellwisher.producer.entity.PeopleEntity;
+
 public class PeopleRequest {
 	
 	private String name;
@@ -33,6 +35,18 @@ public class PeopleRequest {
 	public void setOccasionDate(LocalDate occasionDate) {
 		this.occasionDate = occasionDate;
 	}
-
+	public PeopleRequest() {
+		super();
+	}
+    
+	public PeopleRequest (PeopleEntity peopleEntity)
+	{
+		super();
+		this.name = peopleEntity.getName();
+		this.email = peopleEntity.getEmail();
+		this.occasion = peopleEntity.getOccasion();
+		this.occasionDate = peopleEntity.getDate();
+	}
+	
 	
 }
