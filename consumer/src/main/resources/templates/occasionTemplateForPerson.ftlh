@@ -46,9 +46,9 @@
 </head>
 <body>
     <div class="container">
-        <h1>Happy ${occasion}!,</h1>
+        <h1>Happy ${occasion}!</h1>
         <div class="image-container">
-            <img src="https://github.com/Shashank2707/Well-wisher/blob/documentation/docs/Architecture.png?raw=true" alt="Birthday Image">
+            <img src="https://raw.githubusercontent.com/Shashank2707/Well-wisher/deployment/consumer/src/main/resources/templates/assets/MailImage.png" alt="Birthday Image">
         </div>
         <p>Dear ${name},</p>
         
