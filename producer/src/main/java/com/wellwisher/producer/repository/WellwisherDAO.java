@@ -15,15 +15,14 @@ import com.wellwisher.producer.entity.PeopleEntity;
 @Repository
 public interface WellwisherDAO extends JpaRepository<PeopleEntity, Integer> {
 
-	String query = "SELECT * FROM people_entity p"
+	final String allWithSameDateQuery = "SELECT * FROM people_entity p"
 			+ " WHERE EXTRACT(DAY FROM p.date) = ?1"
 			+ " AND EXTRACT(MONTH FROM p.date) = ?2";
 	
 	public PeopleEntity save(PeopleEntity people);
 	
-	@Query(value = query, nativeQuery = true)
+	@Query(value = allWithSameDateQuery, nativeQuery = true)
 	public List<PeopleEntity> findAllByDateToday(Integer date, Integer month);
-	
 	
 	public Optional<PeopleEntity> findByEmailAndOccasion(String email, String occasion);
 

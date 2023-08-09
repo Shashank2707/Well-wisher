@@ -37,14 +37,38 @@ public class WellwisherServiceIMPL implements WellwisherService {
 	private String secretKey;
 
 	@Override
-	public ResponseEntity<String> subscribe(PeopleRequest peopleDto) {
-		PeopleEntity people = new PeopleEntity(peopleDto);
-		Optional<PeopleEntity> select = wellWisherDAO.findByEmailAndOccasion(people.getEmail(), people.getOccasion());
+	public ResponseEntity<String> subscribe(PeopleRequest peopleRequest) {
+		Optional<PeopleEntity> select = wellWisherDAO.findByEmailAndOccasion(peopleRequest.getEmail(), peopleRequest.getOccasion());
 		if (select.isPresent()) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(SIMILAR_ENTRY_EXIST);
 		}
-		wellWisherDAO.save(people);
-		return ResponseEntity.ok(SAVED_DATA);
+		wellWisherDAO.save(new PeopleEntity(peopleRequest));
+		select = wellWisherDAO.findByEmailAndOccasion(peopleRequest.getEmail(), peopleRequest.getOccasion());
+		if (select.isPresent()) {
+			return ResponseEntity.ok(SAVED_DATA);
+		}
+		// throw new Internal Server Error
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Entry not created!");
+	}
+
+	@Override
+	public ResponseEntity<String> unsubscribe(String email) {
+		int updateCount = wellWisherDAO.unsubscribe(email);
+		if (updateCount > 0)
+			return ResponseEntity.ok(UNSUBSCRIBED);
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email Id not found");
+	}
+
+	@Override
+	public ResponseEntity<List<PeopleRequest>> getAllUser(String otp) {
+		if (TotpUtil.validate(secretKey, otp.trim())) {
+			List<PeopleEntity> customList = wellWisherDAO.findAll();
+			List<PeopleRequest> allUser = customList.stream()
+					.map(PeopleRequest::new)
+					.collect(Collectors.toList());
+			return ResponseEntity.ok(allUser);
+		}
+		return new ResponseEntity<>(Collections.emptyList(), HttpStatus.UNAUTHORIZED);
 	}
 
 	@Override
@@ -62,23 +86,5 @@ public class WellwisherServiceIMPL implements WellwisherService {
 	public List<BroadcastEntity> getBroadcastOccasion() {
 		LocalDate istDate = DateUtil.getTodaysZoneDate();
 		return broadcastDAO.findAllByDate(istDate);
-	}
-
-	@Override
-	public ResponseEntity<String> unsubscribe(String email) {
-		wellWisherDAO.unsubscribe(email);
-		return ResponseEntity.ok(UNSUBSCRIBED);
-	}
-
-	@Override
-	public ResponseEntity<List<PeopleRequest>> getAllUser(String otp) {
-		if (TotpUtil.validate(secretKey, otp.trim())) {
-			List<PeopleEntity> customList = wellWisherDAO.findAll();
-			List<PeopleRequest> allUser = customList.stream()
-					.map(PeopleRequest::new)
-					.collect(Collectors.toList());
-			return ResponseEntity.ok(allUser);
-		}
-		return new ResponseEntity<>(Collections.emptyList(), HttpStatus.UNAUTHORIZED);
 	}
 }

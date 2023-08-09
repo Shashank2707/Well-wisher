@@ -1,7 +1,5 @@
 package com.wellwisher.consumer.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
@@ -35,8 +33,6 @@ public class RabbitConfig {
 	@Value("${spring.rabbitmq.broadcastExchange}")
 	private String broadcastExchangeName;
 	
-	private static final Logger logger = LoggerFactory.getLogger(RabbitConfig.class);
-
 
 	@Bean
 	public Queue getQueue() {

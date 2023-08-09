@@ -3,6 +3,7 @@ package com.wellwisher.producer.pojo;
 import java.time.LocalDate;
 
 import com.wellwisher.producer.entity.PeopleEntity;
+import com.wellwisher.producer.util.WellWisherStringUtils;
 
 public class PeopleRequest {
 	
@@ -15,19 +16,19 @@ public class PeopleRequest {
 		return name;
 	}
 	public void setName(String name) {
-		this.name = name;
+		this.name = WellWisherStringUtils.toTitleCase(name);
 	}
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
-		this.email = email;
+		this.email = email.toLowerCase();
 	}
 	public String getOccasion() {
 		return occasion;
 	}
 	public void setOccasion(String occasion) {
-		this.occasion = occasion;
+		this.occasion = WellWisherStringUtils.toTitleCase(occasion);
 	}
 	public LocalDate getOccasionDate() {
 		return occasionDate;
@@ -42,11 +43,9 @@ public class PeopleRequest {
 	public PeopleRequest (PeopleEntity peopleEntity)
 	{
 		super();
-		this.name = peopleEntity.getName();
-		this.email = peopleEntity.getEmail();
-		this.occasion = peopleEntity.getOccasion();
-		this.occasionDate = peopleEntity.getDate();
+		this.setName(peopleEntity.getName());
+		this.setEmail(peopleEntity.getEmail());
+		this.setOccasion(peopleEntity.getOccasion());
+		this.setOccasionDate(peopleEntity.getDate());
 	}
-	
-	
 }
