@@ -7,10 +7,10 @@ import de.taimos.totp.TOTP;
 
 public class TotpUtil {
 
-	public static String getTOTPCode(String secretKey) {
-	    Base32 base32 = new Base32();
+	public static boolean validate(String secretKey, String otp) {
+		Base32 base32 = new Base32();
 	    byte[] bytes = base32.decode(secretKey.toUpperCase());
 	    String hexKey = Hex.encodeHexString(bytes);
-	    return TOTP.getOTP(hexKey);
+		return TOTP.validate(hexKey, otp);
 	}
 }
