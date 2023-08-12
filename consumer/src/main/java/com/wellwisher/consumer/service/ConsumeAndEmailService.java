@@ -46,10 +46,10 @@ public class ConsumeAndEmailService {
     @RabbitListener(queues = "${spring.rabbitmq.broadcastQueue}")
     public void broadcastConsumeAndSendEmail(BroadcastDTO broadcast, Channel channel) {
     	logger.info("Inside broadcastCconsumeAndSendEmail()");
-        //sendBroadcastEmail(broadcast);
+        sendBroadcastEmail(broadcast);
         logger.info("Broadcast emailed sent successfully!!");
     }
-
+     
 	private void sendEmail(People people) throws IOException, TemplateException {
 		MimeMessage message = mailSender.createMimeMessage();
 		try {
@@ -63,8 +63,30 @@ public class ConsumeAndEmailService {
 	        model.put("occasion", people.getOccasion());
 	        helper.setText(geContentFromTemplate(model),true);
 	        mailSender.send(message);
-	        logger.info("Email sent successfully");;
+	        logger.info("Email sent successfully");
 
+        } catch (MessagingException e) {
+            logger.error("Inside sendEmail, Exception occured | Reason : {}", e.getMessage());
+            throw new InternalServerErrorException(SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+	}
+	
+	private void sendBroadcastEmail(BroadcastDTO broadcast) {
+		MimeMessage message = mailSender.createMimeMessage();
+		try {
+			
+	        MimeMessageHelper helper = new MimeMessageHelper(message);
+	        logger.info("Inside ConsumeAndEmailService, sendBroadcastEmail -> Sending Email !!");
+	        helper.setTo(broadcast.getEmail());
+	        helper.setSubject("Happy " + broadcast.getOccasion() + " !!");
+	        Map<String, Object> model = new HashMap<>();
+	        model.put("name", broadcast.getName());
+	        model.put("occasion", broadcast.getOccasion());
+	        helper.setText(getContentFromBroadcastTemplate(model,broadcast.getTemplate()),true);
+	        mailSender.send(message);
+	        logger.info("Email sent successfully");
+            
+	        
         } catch (MessagingException e) {
             logger.error("Inside sendEmail, Exception occured | Reason : {}", e.getMessage());
             throw new InternalServerErrorException(SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -79,5 +101,18 @@ public class ConsumeAndEmailService {
 				e.printStackTrace();
 			}
 	        return stringWriter.getBuffer().toString();
+	  }
+	  private String getContentFromBroadcastTemplate(Map<String, Object>model, String templateName)
+	  {
+		  logger.info("Inside ConsumeAndEmailService, getContentFromBroadcastTemplate");
+		  StringWriter stringWriter = new StringWriter();
+		  try {
+			  freemarkerConfig.getTemplate(templateName +".ftlh").process(model, stringWriter);
+		  }catch(TemplateException | IOException e)
+		  {
+			  e.printStackTrace();
+		  }
+		  logger.info("Inside ConsumeAndEmailService, getContentFromBroadcastTemplate -> Successfully reterive the content of template");
+		  return stringWriter.getBuffer().toString();
 	  }
 }
