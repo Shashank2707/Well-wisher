@@ -36,7 +36,6 @@
         p {
             line-height: 1.6;
             margin-bottom: 15px;
-            color: purple;
         }
         
         .signature {
@@ -46,6 +45,7 @@
        .tricolor-text {
             font-size: 24px;
             font-weight: bold;
+            text-align: center;
             display: inline-block;
         }
 

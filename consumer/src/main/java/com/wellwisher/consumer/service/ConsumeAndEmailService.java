@@ -84,7 +84,7 @@ public class ConsumeAndEmailService {
 	        model.put("occasion", broadcast.getOccasion());
 	        helper.setText(getContentFromBroadcastTemplate(model,broadcast.getTemplate()),true);
 	        mailSender.send(message);
-	        logger.info("Email sent successfully");
+	        logger.info("BroadCast Email sent successfully");
             
 	        
         } catch (MessagingException e) {

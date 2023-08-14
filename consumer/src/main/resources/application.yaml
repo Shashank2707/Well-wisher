@@ -1,7 +1,7 @@
 spring:
   name: wellwisher_consumer
   profiles:
-    active: production
+    active: ${ACTIVE_PROFILE}
 ---
 
 spring:
